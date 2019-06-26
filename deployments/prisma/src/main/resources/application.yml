@@ -1,0 +1,12 @@
+
+# actuator 的相关配置, 如 management.endpoints.web.exposure.include 定义那些接口可以使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: prisma
+server:
+  port: ${random.int[10000,19999]}

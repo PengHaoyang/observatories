@@ -8,15 +8,15 @@
         <groupId>salonika.observatories</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>..</relativePath>
+        <relativePath>../..</relativePath>
     </parent>
-    <artifactId>observatories-components</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>observatories-core</artifactId>
 
-    <description>for buiding component dependences</description>
-
-    <modules>
-        <module>core</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
