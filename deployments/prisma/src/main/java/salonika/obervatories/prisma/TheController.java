@@ -3,8 +3,8 @@ package salonika.obervatories.prisma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import salonika.obervatories.core.Beam;
+import salonika.obervatories.core.IService;
 import salonika.obervatories.core.JSONs;
 
 import java.time.Instant;
@@ -18,7 +18,7 @@ import java.time.Instant;
 public class TheController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private IService service;
 
     @Autowired
     private NacosRegistration serviceInstance;
@@ -54,11 +54,11 @@ public class TheController {
 
         if (i-- > 0) {
             beam.getMess().put("__indicators__", i);
-            result = restTemplate.postForObject("http://prisma/refraction/v1", beam, Beam.class);
+            result = service.callPrisma(beam);
         } else {
             i = max;
             beam.getMess().put("__indicators__", i);
-            result = restTemplate.postForObject("http://sentry/checker/v1", beam, Beam.class);
+            result = service.callSentry(beam);
         }
         return result;
     }

@@ -3,8 +3,8 @@ package salonika.obervatories.probe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import salonika.obervatories.core.Beam;
+import salonika.obervatories.core.IService;
 import salonika.obervatories.core.JSONs;
 
 import java.time.Instant;
@@ -18,7 +18,7 @@ import java.time.Instant;
 public class TheController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private IService service;
 
     @Autowired
     private NacosRegistration serviceInstance;
@@ -39,7 +39,7 @@ public class TheController {
             json.put("start", Instant.now().toString());
         }));
 
-        Beam result = restTemplate.postForObject("http://pylon/reinforcement/v1", beam, Beam.class);
+        Beam result = service.callPylon(beam);
         return result;
     }
 

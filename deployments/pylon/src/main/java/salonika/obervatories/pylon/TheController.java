@@ -18,9 +18,6 @@ import java.time.Instant;
 public class TheController {
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
     private NacosRegistration serviceInstance;
 
     @GetMapping("enter")

@@ -1,13 +1,12 @@
 package salonika.obervatories.sentry;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import salonika.obervatories.core.Beam;
+import salonika.obervatories.core.IService;
 import salonika.obervatories.core.JSONs;
 
 import java.time.Instant;
@@ -21,7 +20,7 @@ import java.time.Instant;
 public class TheController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private IService service;
 
     /**
      * 也是 ServiceInstance
@@ -50,21 +49,21 @@ public class TheController {
 
         if (c == 1) {
             try {
-                result = restTemplate.postForObject("http://probe/disposal/v1", beam, Beam.class);
+                result = service.callProbe(beam);
             } catch (Exception e) {
                 beam.getErrStack().add("probe err");
                 e.printStackTrace();
             }
         } else if (c == 2) {
             try {
-                result = restTemplate.postForObject("http://pylon/reinforcement/v1", beam, Beam.class);
+                result = service.callPylon(beam);
             } catch (Exception e) {
                 beam.getErrStack().add("pylon err");
                 e.printStackTrace();
             }
         } else {
             try {
-                result = restTemplate.postForObject("http://prisma/refraction/v1", beam, Beam.class);
+                result = service.callPrisma(beam);
             } catch (Exception e) {
                 beam.getErrStack().add("prisma err");
                 e.printStackTrace();
