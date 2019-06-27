@@ -1,7 +1,5 @@
 package salonika.obervatories.core;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,12 +16,12 @@ public class Beam {
      */
     private String id;
 
-    private List<String> visitors = new LinkedList<>();
+    private List<String> errStack = new LinkedList<>();
 
     /**
      * mess
      */
-    private JSONObject mess = new JSONObject();
+    private Mess mess = new Mess();
 
     public String getId() {
         return id;
@@ -33,19 +31,19 @@ public class Beam {
         this.id = id;
     }
 
-    public List<String> getVisitors() {
-        return visitors;
+    public List<String> getErrStack() {
+        return errStack;
     }
 
-    public void setVisitors(List<String> visitors) {
-        this.visitors = visitors;
+    public void setErrStack(List<String> errStack) {
+        this.errStack = errStack;
     }
 
-    public JSONObject getMess() {
+    public Mess getMess() {
         return mess;
     }
 
-    public void setMess(JSONObject mess) {
+    public void setMess(Mess mess) {
         this.mess = mess;
     }
 }

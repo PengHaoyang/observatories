@@ -1,6 +1,3 @@
-
-
-
 # actuator 的相关配置, 如 management.endpoints.web.exposure.include 定义那些接口可以使用
 management:
   endpoints:
