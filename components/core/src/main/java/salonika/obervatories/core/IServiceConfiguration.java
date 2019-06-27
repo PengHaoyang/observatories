@@ -1,7 +1,6 @@
 package salonika.obervatories.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,27 +18,39 @@ import org.springframework.web.client.RestTemplate;
 public class IServiceConfiguration {
 
     @Autowired(required = false)
-    private INFClient infClient;
+    private SentryClient sentryClient;
+
+    @Autowired(required = false)
+    private ProbeClient probeClient;
+
+    @Autowired(required = false)
+    private PylonClient pylonClient;
+
+    @Autowired(required = false)
+    private PrismaClient prismaClient;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @FeignClient
-    @RequestMapping
-    public interface INFClient {
-
-        @PostMapping("refraction/v1")
-        Beam callPrisma(@RequestBody Beam beam);
-
-        @PostMapping("disposal/v1")
-        Beam callProbe(@RequestBody Beam beam);
-
-        @PostMapping("reinforcement/v1")
-        Beam callPylon(@RequestBody Beam beam);
-
+    @FeignClient("sentry")
+    public interface SentryClient {
         @PostMapping("checker/v1")
         Beam callSentry(@RequestBody Beam beam);
-
+    }
+    @FeignClient("probe")
+    public interface ProbeClient {
+        @PostMapping("disposal/v1")
+        Beam callProbe(@RequestBody Beam beam);
+    }
+    @FeignClient("pylon")
+    public interface PylonClient {
+        @PostMapping("reinforcement/v1")
+        Beam callPylon(@RequestBody Beam beam);
+    }
+    @FeignClient("prisma")
+    public interface PrismaClient {
+        @PostMapping("refraction/v1")
+        Beam callPrisma(@RequestBody Beam beam);
     }
 
     @Bean
@@ -47,22 +58,22 @@ public class IServiceConfiguration {
         return new IService() {
             @Override
             public Beam callPrisma(Beam beam) {
-                return infClient.callPrisma(beam);
+                return prismaClient.callPrisma(beam);
             }
 
             @Override
             public Beam callProbe(Beam beam) {
-                return infClient.callProbe(beam);
+                return probeClient.callProbe(beam);
             }
 
             @Override
             public Beam callPylon(Beam beam) {
-                return infClient.callPylon(beam);
+                return pylonClient.callPylon(beam);
             }
 
             @Override
             public Beam callSentry(Beam beam) {
-                return infClient.callSentry(beam);
+                return sentryClient.callSentry(beam);
             }
         };
     }
