@@ -1,13 +1,14 @@
 package salonika.observatories.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import salonika.observatories.core.bean.Beam;
+import salonika.observatories.core.feign.PrismaFeignConfiguration;
+import salonika.observatories.core.feign.ProbeFeignConfiguration;
+import salonika.observatories.core.feign.PylonFeignConfiguration;
+import salonika.observatories.core.feign.SentryFeignConfiguration;
 
 /**
  * @Author: penghaoyang
@@ -15,46 +16,25 @@ import salonika.observatories.core.bean.Beam;
  * @Description: IServiceConfiguration
  */
 @Configuration
-public class IServiceConfiguration {
+public class ServiceConfiguration {
 
     @Autowired(required = false)
-    private SentryClient sentryClient;
+    private SentryFeignConfiguration.ISentryClient sentryClient;
 
     @Autowired(required = false)
-    private ProbeClient probeClient;
+    private ProbeFeignConfiguration.IProbeClient probeClient;
 
     @Autowired(required = false)
-    private PylonClient pylonClient;
+    private PylonFeignConfiguration.IPylonClient pylonClient;
 
     @Autowired(required = false)
-    private PrismaClient prismaClient;
+    private PrismaFeignConfiguration.IPrismaClient prismaClient;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @FeignClient("sentry")
-    public interface SentryClient {
-        @PostMapping("checker/v1")
-        Beam callSentry(@RequestBody Beam beam);
-    }
-    @FeignClient("probe")
-    public interface ProbeClient {
-        @PostMapping("disposal/v1")
-        Beam callProbe(@RequestBody Beam beam);
-    }
-    @FeignClient("pylon")
-    public interface PylonClient {
-        @PostMapping("reinforcement/v1")
-        Beam callPylon(@RequestBody Beam beam);
-    }
-    @FeignClient("prisma")
-    public interface PrismaClient {
-        @PostMapping("refraction/v1")
-        Beam callPrisma(@RequestBody Beam beam);
-    }
-
     @Bean
-    public IService feignClientService(){
+    public IService feignClientService() {
         return new IService() {
             @Override
             public Beam callPrisma(Beam beam) {
@@ -78,8 +58,8 @@ public class IServiceConfiguration {
         };
     }
 
-//    @Bean
-    public IService restClientService(){
+    //    @Bean
+    public IService restClientService() {
         return new IService() {
             @Override
             public Beam callPrisma(Beam beam) {
