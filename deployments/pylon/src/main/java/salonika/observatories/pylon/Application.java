@@ -1,4 +1,4 @@
-package salonika.obervatories.sentry;
+package salonika.observatories.pylon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +13,9 @@ import org.springframework.web.client.RestTemplate;
  * @Date: 2019/6/26 23:10
  * @Description: Application
  */
-@SpringBootApplication(scanBasePackages = "salonika.obervatories")
+@SpringBootApplication(scanBasePackages = "salonika.observatories")
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "salonika.obervatories")
+@EnableFeignClients(basePackages = "salonika.observatories")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
@@ -26,5 +26,4 @@ public class Application {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
 }

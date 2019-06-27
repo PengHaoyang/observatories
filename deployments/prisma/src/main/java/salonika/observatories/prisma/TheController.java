@@ -1,11 +1,11 @@
-package salonika.obervatories.prisma;
+package salonika.observatories.prisma;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.web.bind.annotation.*;
-import salonika.obervatories.core.Beam;
-import salonika.obervatories.core.IService;
-import salonika.obervatories.core.JSONs;
+import salonika.observatories.core.bean.Beam;
+import salonika.observatories.core.IService;
+import salonika.observatories.core.JSONs;
 
 import java.time.Instant;
 

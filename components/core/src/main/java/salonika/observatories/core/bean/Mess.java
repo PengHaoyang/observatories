@@ -1,4 +1,4 @@
-package salonika.obervatories.core;
+package salonika.observatories.core.bean;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

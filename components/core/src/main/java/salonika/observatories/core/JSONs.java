@@ -1,4 +1,4 @@
-package salonika.obervatories.core;
+package salonika.observatories.core;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -1,6 +1,6 @@
-package salonika.obervatories.core;
+package salonika.observatories.core;
 
-import salonika.obervatories.core.Beam;
+import salonika.observatories.core.bean.Beam;
 
 /**
  * @Author: penghaoyang

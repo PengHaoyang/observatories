@@ -1,11 +1,10 @@
-package salonika.obervatories.pylon;
+package salonika.observatories.pylon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import salonika.obervatories.core.Beam;
-import salonika.obervatories.core.JSONs;
+import salonika.observatories.core.bean.Beam;
+import salonika.observatories.core.JSONs;
 
 import java.time.Instant;
 

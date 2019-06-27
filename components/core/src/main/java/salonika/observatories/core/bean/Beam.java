@@ -1,4 +1,4 @@
-package salonika.obervatories.core;
+package salonika.observatories.core.bean;
 
 import java.util.LinkedList;
 import java.util.List;
